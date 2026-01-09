@@ -75,21 +75,3 @@ python main.py
 1. Decrease `FOOD_AMOUNT` to create scarcity and observe which strategy dominates.
 2. Increase `BLOB_SPEED` for one group to test mobility advantages.
 3. Modify interaction rules in `main.py` to explore different social dynamics.
-
----
-
-## Notes for Developers
-
-- To add sensing, decision-making, or mutation mechanics, extend `blob.py` and pass parameters through `settings.py`.
-- `stats.py` currently plots with `matplotlib.show()`; replace or augment it to save CSV/PNG for automated experiments.
-
----
-
-## License
-
-No license specified. Add a `LICENSE` if you want to set reuse terms.
-
----
-
-Want a translated README, screenshots, or automated experiment scripts? Tell me which and I’ll add them.
-# evolution_simulation
