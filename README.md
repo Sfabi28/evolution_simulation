@@ -1,35 +1,46 @@
-# 🧬 Evolution Simulation
 
-An interactive, lightweight Python simulation of simple organisms (blobs) that search for food, evolve behaviors, and produce observable statistics over time. Designed for experimentation, teaching, and playful exploration of emergent behavior.
+# 🧬 Evolution Simulation — Greedy vs Generous
+
+A small, visual Python sandbox that pits two simple strategies against each other as they compete for limited food in a 2D world. The simulation demonstrates emergent population dynamics between **Greedy (Red)** and **Generous (Blue)** agents.
+
+https://private-user-images.githubusercontent.com/148211492/533932452-b68620f1-7ba5-4943-a5a4-543e0bb690ac.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Njc5NjkyNDcsIm5iZiI6MTc2Nzk2ODk0NywicGF0aCI6Ii8xNDgyMTE0OTIvNTMzOTMyNDUyLWI2ODYyMGYxLTdiYTUtNDk0My1hNWE0LTU0M2UwYmI2OTBhYy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMTA5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDEwOVQxNDI5MDdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01ZmRiYTVmYTQ4ZDA0NDY3NjJkNWJjNmMxYTQ4ODZhNzM2MWM3NjY3YzEzYTljNDkwN2M2Njc5MDEzYmJkZjhmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.JeM0BrAr_0oCHWUsdBUHpQMhA4jUbTVjFJCe8L5kp_Q
+---
+
+## What it models
+
+- Two populations start with 10 agents each: **Red (Greedy)** and **Blue (Generous)**.
+- Each day the world spawns a fixed number of food items (`FOOD_AMOUNT`). Agents move to nearest available food and occupy a left or right seat.
+- Interaction rules at a food item:
+	- Single occupant: eats the food (food_eaten = 1).
+	- Two Blues: split food (each gets 0.5).
+	- Two Reds: one randomly gets 0.5, the other gets 0.
+	- Red + Blue: Red wins (Red gets 1, Blue gets 0).
+- Reproduction rules each night:
+	- `food_eaten == 1` → produces 2 offspring.
+	- `food_eaten == 0.5` → produces 1 offspring.
+	- `food_eaten == 0` → no offspring.
+
+These simple rules produce population shifts visible in the runtime and in the plotted graph at exit.
 
 ---
 
-## ✨ Highlights
+## Files
 
-- **Simple & Extensible:** Small codebase so you can quickly understand and modify behaviors.
-- **Real-time Simulation:** Run using `main.py` to watch blobs seek food and evolve.
-- **Configurable:** Tweak parameters in `settings.py` to change mutation rates, world size, and more.
-- **Statistics:** Basic metrics gathered in `stats.py` for observing population trends.
-
----
-
-## Project Structure
-
-- `main.py` — Simulation entry point and loop.
-- `blob.py` — Blob (agent) implementation and behavior logic.
-- `food.py` — Food entities and spawning logic.
-- `settings.py` — Global simulation parameters to tune.
-- `stats.py` — Data collection and basic reporting utilities.
-- `requirement.txt` — Dependencies (if any).
+- `main.py` — Entry point and daily loop (spawning, movement, interactions, reproduction, rendering).
+- `blob.py` — `Blob` class: movement, targeting, seating and drawing logic.
+- `food.py` — `Food` class: seat management and drawing.
+- `settings.py` — Constants: `WIDTH`, `HEIGHT`, colors, `FOOD_AMOUNT`, `BLOB_SIZE`, `BLOB_SPEED`, `FOOD_SIZE`, `FPS`.
+- `stats.py` — Plots population over days using `matplotlib`.
+- `requirement.txt` — Python packages used for plotting and graphics (pygame, matplotlib, numpy, etc.).
 
 ---
 
 ## Requirements
 
 - Python 3.8+
-- (Optional) Create and activate a virtual environment for isolation.
+- Packages listed in `requirement.txt` (pygame, matplotlib, numpy, ...)
 
-Install dependencies (if using external libs):
+Create a virtual environment and install dependencies:
 
 ```bash
 python -m venv .venv
@@ -37,62 +48,48 @@ source .venv/bin/activate
 pip install -r requirement.txt
 ```
 
-If `requirement.txt` is empty, the simulation runs with the Python standard library.
-
 ---
 
-## Quick Start
+## Run
 
-Run the simulation with:
+Start the simulation with:
 
 ```bash
 python main.py
 ```
 
-Controls and runtime information will appear in the console (or in-window prompts if implemented). Tweak parameters in `settings.py` and restart to observe different behaviors.
+- Close the Pygame window to generate and display a population graph (via `matplotlib`).
+- The console prints day numbers and population counts during the run.
 
 ---
 
-## Configuration Tips
+## Quick Configuration
 
-- Open `settings.py` to adjust world size, initial population, food spawn rate, and mutation magnitude.
-- Increase mutation rates to explore more diverse evolutionary outcomes.
-- Increase initial population for more robust statistics but expect slower performance.
-
----
-
-## Development Notes
-
-- To add a new sensing or movement behavior, extend `blob.py` and add corresponding parameters to `settings.py`.
-- To persist or visualize statistics, update `stats.py` to write CSV or JSON and plot externally.
-- Keep simulation steps small when debugging to step through behavior deterministically.
+- Edit `settings.py` to tune world size, `FOOD_AMOUNT`, `BLOB_SIZE`, and `BLOB_SPEED`.
+- To change starting populations, edit the initialization loops in `main.py` (currently 10 red and 10 blue).
 
 ---
 
-## Example Experiments
+## Suggested Experiments
 
-1. Reduce food spawn rate and increase mutation rate — observe resource-driven adaptation.
-2. Increase population and measure average lifespan via `stats.py`.
-3. Add new food types (different nutrition values) to `food.py` and watch specialization.
+1. Decrease `FOOD_AMOUNT` to create scarcity and observe which strategy dominates.
+2. Increase `BLOB_SPEED` for one group to test mobility advantages.
+3. Modify interaction rules in `main.py` to explore different social dynamics.
 
 ---
 
-## Contributing
+## Notes for Developers
 
-Contributions are welcome. Suggested workflow:
-
-1. Fork the repository.
-2. Add a feature branch and implement changes.
-3. Run the simulation and ensure no regressions.
-4. Open a PR with a description of changes and any observable effects.
+- To add sensing, decision-making, or mutation mechanics, extend `blob.py` and pass parameters through `settings.py`.
+- `stats.py` currently plots with `matplotlib.show()`; replace or augment it to save CSV/PNG for automated experiments.
 
 ---
 
 ## License
 
-This project is released under an unlisted/unspecified license by default. Add a `LICENSE` file if you want to provide explicit terms.
+No license specified. Add a `LICENSE` if you want to set reuse terms.
 
 ---
 
-Thanks for exploring this little evolution sandbox! Want me to add screenshots, exportable stats, or a GUI? Open an issue or ask for features.
+Want a translated README, screenshots, or automated experiment scripts? Tell me which and I’ll add them.
 # evolution_simulation
