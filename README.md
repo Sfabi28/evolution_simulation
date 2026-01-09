@@ -3,8 +3,8 @@
 
 A small, visual Python sandbox that pits two simple strategies against each other as they compete for limited food in a 2D world. The simulation demonstrates emergent population dynamics between **Greedy (Red)** and **Generous (Blue)** agents.
 
-https://private-user-images.githubusercontent.com/148211492/533932452-b68620f1-7ba5-4943-a5a4-543e0bb690ac.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Njc5NjkyNDcsIm5iZiI6MTc2Nzk2ODk0NywicGF0aCI6Ii8xNDgyMTE0OTIvNTMzOTMyNDUyLWI2ODYyMGYxLTdiYTUtNDk0My1hNWE0LTU0M2UwYmI2OTBhYy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMTA5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDEwOVQxNDI5MDdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01ZmRiYTVmYTQ4ZDA0NDY3NjJkNWJjNmMxYTQ4ODZhNzM2MWM3NjY3YzEzYTljNDkwN2M2Njc5MDEzYmJkZjhmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.JeM0BrAr_0oCHWUsdBUHpQMhA4jUbTVjFJCe8L5kp_Q
----
+![Simulation screenshot](.assets/graph.png)
+
 
 ## What it models
 
