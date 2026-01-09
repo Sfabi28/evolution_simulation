@@ -2,6 +2,7 @@ import pygame
 import sys
 import random
 import matplotlib.pyplot as plt
+from stats import show_graph
 from settings import *
 from blob import Blob
 from food import Food 
@@ -55,11 +56,16 @@ def main():
     game_over = False
     step = "morning"
 
+    stats_red = [len(red_blobs)]
+    stats_blue = [len(blue_blobs)]
+    days_list = [0]
+
     while not game_over:
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+                show_graph(days_list, stats_red, stats_blue)
                 sys.exit()
 
         if step == "morning":
@@ -114,8 +120,12 @@ def main():
                         b2.food_eaten = 0.5
                     
                     elif b1.color == RED and b2.color == RED:
-                        b1.food_eaten = 0
-                        b2.food_eaten = 0
+                        if random.random() < 0.5:
+                            b1.food_eaten = 0.5
+                            b2.food_eaten = 0
+                        else:
+                            b1.food_eaten = 0
+                            b2.food_eaten = 0
                     
                     else:
                         winner = b1 if b1.color == RED else b2
@@ -149,14 +159,17 @@ def main():
             blue_blobs = next_blue
 
             print(f"Fine Giorno. Rossi: {len(red_blobs)} - Blu: {len(blue_blobs)}")
-            pygame.time.wait(1000)
+
+            stats_red.append(len(red_blobs))
+            stats_blue.append(len(blue_blobs))
+            days_list.append(day)
+
+            pygame.time.wait(100)
 
             if len(red_blobs) == 0 and len(blue_blobs) == 0:
-                print("ESTINZIONE TOTALE")
-                pygame.quit()
-                sys.exit()
-
-            step = "morning"
+                game_over = True
+            else:
+                step = "morning"
 
 
         screen.fill(BLACK)
@@ -170,6 +183,12 @@ def main():
 
         pygame.display.flip()
         clock.tick(FPS)
+
+    pygame.quit()
+
+    if len(days_list) > 1:
+        show_graph(days_list, stats_red, stats_blue)
+
 
 if __name__ == "__main__":
     main()
